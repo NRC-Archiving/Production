@@ -3,7 +3,7 @@ const url = require('../config/keys').mongoUri;
 const MongoUtils = require('../utils/MongoUtils');
 
 module.exports = async function() {
-    mongoose.connect(url+"/test?authSource=admin")
+    mongoose.connect(url+"/nrc-archiving?authSource=admin")
     .then((mongo) => { 
         console.log('\x1b[36m%s\x1b[0m', 'MongoDB connected');
     })
