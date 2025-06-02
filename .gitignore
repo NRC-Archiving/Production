@@ -1,0 +1,11 @@
+.storage
+backend/.git
+backend/node_modules
+frontend/.git
+frontend/dist
+frontend/node_modules
+ml-api/venv
+ml-api/.venv
+nlp-api/venv
+nlp-api/.venv
+*.zip

@@ -1,0 +1,36 @@
+networks:
+ nrc-internal:
+  internal: true
+ public:
+  driver: bridge
+
+services:
+ backend:
+  build: ./backend
+  volumes:
+  - type: bind
+    source: .storage
+    target: /app/data
+  environment:
+  - SERVER_HOSTNAME=backend
+  - SERVER_PORT=8000
+  - MONGODB_URI=mongodb://host.docker.internal:27017
+  - FILE_STORAGE_PATH=/mnt/d/data/documents
+  - VUE_URI=http://localhost:80
+  - SMTP_USER=
+  - SMTP_PASS=
+  restart: on-failure
+  networks:
+  - nrc-internal
+  - public
+
+ frontend:
+  build: 
+   context: ./frontend
+  ports:
+  - "80:80"
+  depends_on:
+  - backend
+  networks:
+  - nrc-internal
+  - public
