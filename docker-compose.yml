@@ -4,21 +4,23 @@ networks:
  public:
   driver: bridge
 
+volumes:
+ nrc-data:
+  external: true
+
 services:
  backend:
   build: ./backend
   volumes:
-  - type: bind
-    source: .storage
-    target: /app/data
+  - nrc-data:/home/AppData
   environment:
   - SERVER_HOSTNAME=backend
   - SERVER_PORT=8000
-  - MONGODB_URI=mongodb://host.docker.internal:27017
-  - FILE_STORAGE_PATH=/mnt/d/data/documents
-  - VUE_URI=http://localhost:80
-  - SMTP_USER=
-  - SMTP_PASS=
+  - MONGODB_URI=mongodb://<username>:<password>@<dbIpAddr>:27017
+  - FILE_STORAGE_PATH=/home/AppData
+  - VUE_URI=http://<hostIpAddr>:80
+  - SMTP_USER=<user email>
+  - SMTP_PASS=<email pass>
   restart: on-failure
   networks:
   - nrc-internal
